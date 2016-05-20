@@ -101,7 +101,7 @@ class Rossler():
         x = self.x
         t = self.t
 
-        c_str = str(self.c).replace('.', ':')
+        c_str = str(self.c).replace('.', '-')
 
 
         fig, ax = plt.subplots(nrows = 1, ncols = 1)
@@ -122,7 +122,7 @@ class Rossler():
         y = self.y
         t = self.t
 
-        c_str = str(self.c).replace('.', ':')
+        c_str = str(self.c).replace('.', '-')
 
         fig, ax = plt.subplots(nrows = 1, ncols = 1)
         ax.plot(t, y)
@@ -142,7 +142,7 @@ class Rossler():
         z = self.z
         t = self.t
 
-        c_str = str(self.c).replace('.', ':')
+        c_str = str(self.c).replace('.', '-')
 
         fig, ax = plt.subplots(nrows = 1, ncols = 1)
         ax.plot(t, z)
@@ -163,7 +163,7 @@ class Rossler():
         x = self.x[t_mask]
         y = self.y[t_mask]
 
-        c_str = str(self.c).replace('.', ':')
+        c_str = str(self.c).replace('.', '-')
 
         fig, ax = plt.subplots(nrows = 1, ncols = 1)
         ax.plot(x, y)
@@ -186,7 +186,7 @@ class Rossler():
         y = self.x[t_mask]
         z = self.y[t_mask]
 
-        c_str = str(self.c).replace('.', ':')
+        c_str = str(self.c).replace('.', '-')
 
         fig, ax = plt.subplots(nrows = 1, ncols = 1)
         ax.plot(y, z)
@@ -209,7 +209,7 @@ class Rossler():
         x = self.x[t_mask]
         z = self.y[t_mask]
 
-        c_str = str(self.c).replace('.', ':')
+        c_str = str(self.c).replace('.', '-')
 
         fig, ax = plt.subplots(nrows = 1, ncols = 1)
         ax.plot(x, z)
@@ -233,7 +233,7 @@ class Rossler():
         y = self.y[t_mask]
         z = self.y[t_mask]
 
-        c_str = str(self.c).replace('.', ':')
+        c_str = str(self.c).replace('.', '-')
 
         fig = plt.figure()
         ax = fig.add_subplot(111, projection='3d')
