@@ -20,6 +20,7 @@ import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 
 class Rossler():
     """
@@ -91,72 +92,161 @@ class Rossler():
             y[i+1] = y[i] + (k1_y + 2*k2_y + 2*k3_y + k4_y) / 6
             z[i+1] = z[i] + (k1_z + 2*k2_z + 2*k3_z + k4_z) / 6
 
+    def plotx(self):
+        """
+        Generates images ('.png's) of the values and plots created from the RK4
+        method. Plots the x value vs independent variable t and saves to 'Rossler_'c value'_x'
+        """
+
+        x = self.x
+        t = self.t
+
+        c_str = str(self.c).replace('.', ':')
 
 
-    # def generate_parametric_graph(self):
-    #     """
-    #     Generates images ('.png's) of the plots of the Runge Kutta's
-    #     solutions as well as the exact solutions.
-    #     """
+        fig, ax = plt.subplots(nrows = 1, ncols = 1)
+        ax.plot(t, x)
+        ax.set_xlabel("t")
+        ax.set_ylabel("x(t)")
+        ax.set_title("x(t) vs. t of Rossler approximation for c = " + c_str)
+        ax.grid(True)
+        fig.savefig(self.__class__.__name__ + "_" + c_str + "_x")
+        plt.close(fig)
 
-    #     approx_values = self.rk4_output
-    #     u_list_approx = approx_values[1]
-    #     v_list_approx = approx_values[2]
+    def ploty(self):
+        """
+        Generates images ('.png's) of the values and plots created from the RK4
+        method. Plots the y value vs independent variable t and saves to 'Rossler_'c value'_y'
+        """
 
-    #     fig, ax = plt.subplots(nrows = 1, ncols = 1)
-    #     ax.plot(u_list_approx, v_list_approx, 'r')
-    #     ax.set_xlabel("x(t)")
-    #     ax.set_ylabel("y(t)")
-    #     ax.set_title("Sombrero approximation (parametric) for n = " + str(self.n) + " and F = " + str(self.F))
-    #     ax.grid(True)
-    #     fig.savefig(self.__class__.__name__ + '_parametric'+ '_%3d' % (self.F) + '_%3d' % (self.x_0)  +  '_%3d' % (self.y_0) +  '_%3d.png' % (self.n))
-    #     plt.close(fig)
+        y = self.y
+        t = self.t
 
-    # def generate_x_graph(self):
-    #     """
-    #     Generates images ('.png's) of the plots of the Runge Kutta's
-    #     solutions as well as the exact solutions.
-    #     """
+        c_str = str(self.c).replace('.', ':')
 
-    #     approx_values = self.rk4_output
-    #     x_list_approx = approx_values[1]
-    #     t_list = approx_values[0]
+        fig, ax = plt.subplots(nrows = 1, ncols = 1)
+        ax.plot(t, y)
+        ax.set_xlabel("t")
+        ax.set_ylabel("y(t)")
+        ax.set_title("y(t) vs. t of Rossler approximation for c = " + c_str)
+        ax.grid(True)
+        fig.savefig(self.__class__.__name__ + "_" + c_str + "_y")
+        plt.close(fig)
 
-    #     fig, ax = plt.subplots(nrows = 1, ncols = 1)
-    #     ax.plot(t_list, x_list_approx, 'r')
-    #     ax.set_xlabel("t")
-    #     ax.set_ylabel("x(t)")
-    #     ax.set_title("Sombrero approximation for x(t) for n = " + str(self.n) + " and F = " + str(self.F))
-    #     ax.grid(True)
-    #     fig.savefig(self.__class__.__name__ + '_x' + '_%3d' % (self.F) + '_%3d' % (self.x_0)  +  '_%3d' % (self.y_0) +  '_%3d.png' % (self.n))
-    #     plt.close(fig)
+    def plotz(self):
+        """
+        Generates images ('.png's) of the values and plots created from the RK4
+        method. Plots the z value vs independent variable t and saves to 'Rossler_'c value'_z'
+        """
 
-    # def generate_poincare_graph(self, step, theta = 0 , xLim = (-1.5, 1.5), yLim = (-1.1, 1.1)):
-    #     """
-    #     Generates images ('.png's) of the plots of the Runge Kutta's
-    #     solutions as well as the exact solutions.
-    #     """
-    #     approx_values = self.rk4_output
-    #     u_list_approx = approx_values[1][int(theta*1000) :: step]
-    #     v_list_approx = approx_values[2][int(theta*1000) :: step]
+        z = self.z
+        t = self.t
 
-    #     #This method is more elegant, but rounding errors keep getting in the way
-    #     #value_mask = np.where(approx_values[0] == step + theta)
-    #     #u_list_approx = approx_values[1][value_mask]
-    #     #v_list_approx = approx_values[2][value_mask]
+        c_str = str(self.c).replace('.', ':')
 
-    #     fig, ax = plt.subplots(nrows = 1, ncols = 1)
-    #     ax.plot(u_list_approx[0::3], v_list_approx[0::3], 'r.')
-    #     ax.plot(u_list_approx[1::3], v_list_approx[1::3], 'b.')
-    #     ax.plot(u_list_approx[2::3], v_list_approx[2::3], 'g.')
-    #     ax.set_xlabel("x")
-    #     ax.set_ylabel("x'")
-    #     ax.set_ylim(yLim)
-    #     ax.set_xlim(xLim)
-    #     ax.set_title("Sombrero approximation for theta = ." + str(theta))
-    #     ax.grid(True)
-    #     fig.savefig('frame%02d.png' % (100*theta))
-    #     plt.close(fig)
+        fig, ax = plt.subplots(nrows = 1, ncols = 1)
+        ax.plot(t, z)
+        ax.set_xlabel("t")
+        ax.set_ylabel("z(t)")
+        ax.set_title("z(t) vs. t of Rossler approximation for c = " + c_str)
+        ax.grid(True)
+        fig.savefig(self.__class__.__name__ + "_" + c_str + "_z")
+        plt.close(fig)
+
+    def plotxy(self):
+        """
+        Generates images ('.png's) of the values and plots created from the RK4
+        method. Plots a parametric graph of x vs y over t = T0 to T and saves to 'Rossler_'c value'_xy'
+        """
+
+        t_mask = np.where(self.t >= self.T0)
+        x = self.x[t_mask]
+        y = self.y[t_mask]
+
+        c_str = str(self.c).replace('.', ':')
+
+        fig, ax = plt.subplots(nrows = 1, ncols = 1)
+        ax.plot(x, y)
+        ax.set_ylim((-12, 12))
+        ax.set_xlim((-12, 12))
+        ax.set_xlabel("x(t)")
+        ax.set_ylabel("y(t)")
+        ax.set_title("x(t) vs. y(t) of Rossler approximation for c = " + c_str)
+        ax.grid(True)
+        fig.savefig(self.__class__.__name__ + "_" + c_str + "_xy")
+        plt.close(fig)
+
+    def plotyz(self):
+        """
+        Generates images ('.png's) of the values and plots created from the RK4
+        method. Plots a parametric graph of y vs z over t = T0 to T and saves to 'Rossler_'c value'_yz'
+        """
+
+        t_mask = np.where(self.t >= self.T0)
+        y = self.x[t_mask]
+        z = self.y[t_mask]
+
+        c_str = str(self.c).replace('.', ':')
+
+        fig, ax = plt.subplots(nrows = 1, ncols = 1)
+        ax.plot(y, z)
+        ax.set_ylim((-12, 12))
+        ax.set_xlim((-12, 12))
+        ax.set_xlabel("y(t)")
+        ax.set_ylabel("z(t)")
+        ax.set_title("y(t) vs. z(t) of Rossler approximation for c = " + c_str)
+        ax.grid(True)
+        fig.savefig(self.__class__.__name__ + "_" + c_str + "_yz")
+        plt.close(fig)
+
+    def plotxz(self):
+        """
+        Generates images ('.png's) of the values and plots created from the RK4
+        method. Plots a parametric graph of x vs z over t = T0 to T and saves to 'Rossler_'c value'_xz'
+        """
+
+        t_mask = np.where(self.t >= self.T0)
+        x = self.x[t_mask]
+        z = self.y[t_mask]
+
+        c_str = str(self.c).replace('.', ':')
+
+        fig, ax = plt.subplots(nrows = 1, ncols = 1)
+        ax.plot(x, z)
+        ax.set_ylim((-12, 12))
+        ax.set_xlim((-12, 12))
+        ax.set_xlabel("x(t)")
+        ax.set_ylabel("z(t)")
+        ax.set_title("x(t) vs. z(t) of Rossler approximation for c = " + c_str)
+        ax.grid(True)
+        fig.savefig(self.__class__.__name__ + "_" + c_str + "_xz")
+        plt.close(fig)
+
+    def plotxyz(self):
+        """
+        Generates images ('.png's) of the values and plots created from the RK4
+        method. Plots a 3d parametric graph of x vs y vs z over t = T0 to T and saves to 'Rossler_'c value'_xyz'
+        """
+
+        t_mask = np.where(self.t >= self.T0)
+        x = self.x[t_mask]
+        y = self.y[t_mask]
+        z = self.y[t_mask]
+
+        c_str = str(self.c).replace('.', ':')
+
+        fig = plt.figure()
+        ax = fig.add_subplot(111, projection='3d')
+        ax.plot(x, y, z)
+        ax.set_xlim((-12, 12))
+        ax.set_ylim((-12, 12))
+        ax.set_zlim((0, 25))
+        ax.set_xlabel("x(t)")
+        ax.set_ylabel("y(t)")
+        ax.set_zlabel("z(t)")
+        ax.set_title("x(t) vs. y(t) vs. z(t) of Rossler approximation for c = " + c_str)
+        fig.savefig(self.__class__.__name__ + "_" + c_str + "_xyz")
+        plt.close(fig)
 
 
 class test_Rossler(TestCase):
