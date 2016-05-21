@@ -249,7 +249,7 @@ class Rossler():
         plt.close(fig)
 
 
-def findmaxima(c):
+def findmaxima(c, var = 'x'):
     """
     Creates a RK-4 approximation of Rossler curve with the given c value
     and returns local maxima along the x(t) curve from T0 to T
@@ -260,11 +260,18 @@ def findmaxima(c):
     Rc = Rossler(c, dt=0.01, T0 = T0)
     Rc.run()
 
+    if var == 'x':
+        var = Rc.x
+    elif var == 'y':
+        var = Rc.y
+    else:
+        var = Rc.z
+
     #using only valuse where t > T0
     initial_index = np.where(Rc.t == T0)[0][0]
 
     #moving back 1 to get a more exact diff
-    usable_x = Rc.x[initial_index - 1:]
+    usable_x = var[initial_index - 1:]
     x_diff = np.diff(usable_x)
     usable_x = usable_x[1:]
 
