@@ -249,6 +249,32 @@ class Rossler():
         plt.close(fig)
 
 
+def findmaxima(c):
+    """
+    Creates a RK-4 approximation of Rossler curve with the given c value
+    and returns local maxima along the x(t) curve from T0 to T
+    """
+    T0 = 250
+    e = 3E-4
+
+    Rc = Rossler(c, dt=0.01, T0 = T0)
+    Rc.run()
+
+    #using only valuse where t > T0
+    initial_index = np.where(Rc.t == T0)[0][0]
+
+    #moving back 1 to get a more exact diff
+    usable_x = Rc.x[initial_index - 1:]
+    x_diff = np.diff(usable_x)
+    usable_x = usable_x[1:]
+
+    np.set_printoptions(threshold='nan')
+
+
+    critical_points = usable_x[np.abs(x_diff) < e]
+    return critical_points[critical_points > 0]
+
+
 class test_Rossler(TestCase):
     def test_linear(self, dt = .5, T = 500, x_prime = 2, y_prime = -1, z_prime = 1.5):
         """
